@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">Example5_1GitVc</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="app_name">410570073 鄭順禾 Exercise 3</string>
+    <string name="ed_answer">_____</string>
+    <string name="app_title">猜字謎遊戲</string>
+    <string name="tv_riddle">謎語</string>
+    <string name="tv2">猜字：</string>
+    <string name="hint">您的答案</string>
+    <string name="tv_result">結果</string>
+    <string name="btn_riddle">出題</string>
+    <string name="btn_answer">達題</string>
+    <string name="btn_reAnswer">重答</string>
+    <string name="btn_showAnswer">看謎底</string>
 </resources>
