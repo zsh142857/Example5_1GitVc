@@ -1,58 +1,61 @@
 package com.example.example5_1gitvc
 
-import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import com.example.example5_1gitvc.databinding.ActivityMainBinding
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val tvRiddle =findViewById<TextView>(R.id.tv_riddle)
+        val edAnswer =findViewById<EditText>(R.id.ed_answer)
+        val btnRiddle =findViewById<Button>(R.id.btn_riddle)
+        val btnAnswer=findViewById<Button>(R.id.btn_answer)
+        val btnReAnswer=findViewById<Button>(R.id.btn_reAnswer)
+        val btnShowAnswer=findViewById<Button>(R.id.btn_showAnswer)
+        val tvResult=findViewById<TextView>(R.id.tv_result)
+        var index=0
+        val riddleList= mutableListOf("0000，猜一句成語。：四大皆空","人有他大、天沒他大，猜一個字。：一","台灣女孩，猜一個字。：始","九十九，猜一個字。：白","0+0=1，猜一個成語。：無中生有")
 
-        setSupportActionBar(binding.toolbar)
+        edAnswer.text=null
+        tvResult.text=null
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        btnRiddle.setOnClickListener {
+            edAnswer.text=null
+            tvResult.text=null
+            val countRiddle=riddleList.count()
+            index= Random.nextInt(0,countRiddle)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val (riddle,answer)=riddleList[index].split("：")
+            tvRiddle.text="謎題:"+riddle
+            if (index>=countRiddle)index=0
+
+            btnAnswer.setOnClickListener {
+                val ans =edAnswer.text
+                if (ans.toString()==answer) {
+                    tvResult.text = "好棒，您答對了"
+                    Toast.makeText(this,edAnswer.text,Toast.LENGTH_SHORT).show()
+                }else{
+                    tvResult.text="沒猜中，再試一下吧!"
+                }
+            }
+
+            btnReAnswer.setOnClickListener {
+                edAnswer.text=null
+                tvResult.text=null
+            }
+
+            btnShowAnswer.setOnClickListener {
+                tvResult.text="謎底是:"+answer
+            }
+
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
     }
 }
